@@ -14,7 +14,7 @@ Thanks for reading. Merry Christmas!
 
 ## How to run (Days 1-7)
 
-    cd ./<day>
+    cd ./src/<day>
     npx ts-node main.ts
 
 ## Tests (Day 8+)
