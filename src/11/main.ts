@@ -61,30 +61,34 @@ function monkeyBusiness(data: string, rounds: number, worryDivBy?: number) {
     monkeys[instruction.monkey] = instruction;
   });
   
+  // track how many times each monkey inspects a value
   const inspections: number[] = Array(instructions.length).fill(0);
 
-  // work out a common denominator
+  // find the common denominator
+  // a value which all the divBy values equally divide into
   let common = 1;
   instructions.forEach(instruction => {
     common *= instruction.divBy;
   });
 
-  // console.log({ monkeys });
-
   for (let i = 0; i < rounds; i++) {
     monkeys.forEach((monkey: instruction) => {
       let worry: number | undefined;
+      // keep looping while there are items to inspect and move
       while (worry = monkey.items.shift()) {
+        // increment the number of times this monkey has inspected an item
         inspections[monkey.monkey] += 1;
-        let newValue = monkey.operationFunc(worry);
-        // console.log({ monkey: monkey.monkey, worry, newValue });
-        
-        newValue = worryDivBy ? Math.floor(newValue / worryDivBy) : newValue % common;
 
-        // console.log('after inspection', { monkey: monkey.monkey, worry, newValue });
+        // get the new worry value based on the monkey function input
+        let newValue = monkey.operationFunc(worry);
         
+        // reduce the value by either the factor provided
+        // or by the modulo of the common denominator
+        newValue = worryDivBy ? Math.floor(newValue / worryDivBy) : newValue % common;
+        
+        // work out the next monkey by checking if it is divisible by the test value
         const nextMonkey = (newValue % monkey.divBy === 0) ? monkey.ifTrue : monkey.ifFalse;
-        // console.log({ monkey: monkey.monkey, nextMonkey });
+
         monkeys[nextMonkey].items.push(newValue);
       }
     });
@@ -112,3 +116,5 @@ export function part1(data: string) {
 export function part2(data: string) {
   return monkeyBusiness(data, 10000);
 }
+
+// readFile('example.txt').then(part1);

@@ -73,12 +73,14 @@ function moveHeadThenTail(knots: position[], motion: motion, visitedByTail: { [k
   for (let i = 0; i < amount; i++) {
     head[coordinate] += directionSign;
 
+    // move each knot in the rope one at a time
     for (let j = 1; j < knots.length; j++) {
       const a = knots[j - 1];
       const b = knots[j];
       moveToKeepUp(a, b, visitedByTail);
     }
 
+    // track the unique tail positions
     const tail = knots[knots.length - 1];
     addTailPositon(tail, visitedByTail);
   }

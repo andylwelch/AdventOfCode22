@@ -31,6 +31,4 @@ describe('Day 11 - monkey business', () => {
     const answer = part2(data);
     expect(answer).toBe(24389045529);
   });
-
- 
 });

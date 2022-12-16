@@ -31,7 +31,10 @@ export function part1(data: string) {
   function increaseCycles(by: number) {
     for (let i = 0; i < by; i++) {
       let pos = cycles % 40;
+
+      // work out if the sprite and current position overlap
       const overlap = (x - spriteBound) <= pos && pos <= (x + spriteBound);
+      // crt displays on or off based on overlap
       crt.push(overlap ? '#' : '.');
       
       cycles += 1;
@@ -57,6 +60,7 @@ export function part1(data: string) {
     }
   });
 
+  // log the CRT screen output so we can see what's going on
   const rows = crt.join('').match(/.{40}/g);
   if (rows) {
     // console.log('screen output', rows);
@@ -68,8 +72,4 @@ export function part1(data: string) {
   const sum = strengths.reduce((a, b) => a + b, 0);
   // console.log({ sum });
   return sum;
-}
-
-export function part2(data: string) {
-  
 }

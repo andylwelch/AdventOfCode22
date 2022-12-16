@@ -138,6 +138,7 @@ function calculateSceneScore(grid: number[][], row: number, col: number) {
   return d.north * d.south * d.west * d.east;
 }
 
+// scenery score based on how far you can see in each direction
 export function part2(data: string) {
   let { grid, tracking } = parseDataToMap(data, 0);
   // console.log({ grid });
